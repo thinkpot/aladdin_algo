@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en" class="light-style customizer-hide" dir="ltr" data-theme="theme-default" data-assets-path="{% static '/assets/' %}"
+  data-template="vertical-menu-template-free">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+  <title>Login into Alladin</title>
+  <meta name="description" content="" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="{% static '/assets/img/favicon/favicon.ico' %}" />
+
+  {% include 'common/common_css.html' %}
+  {% block common_css %}
+  {% endblock %}
+
+</head>
+
+<body>
+  <!-- Content -->
+
+  <div class="container-xxl">
+    <div class="authentication-wrapper authentication-basic container-p-y">
+      <div class="authentication-inner">
+        <!-- Register -->
+        <div class="card">
+          <div class="card-body">
+            <!-- Logo -->
+            <div class="app-brand justify-content-center">
+              <a href="index.html" class="app-brand-link gap-2">
+                <span class="app-brand-logo demo">
+                  <img src="{% static 'assets/img/logos/aladdin.png' %}" alt="" width="50">
+                </span>
+                <span class="app-brand-text demo text-body fw-bolder">Aladdin</span>
+              </a>
+            </div>
+            <!-- /Logo -->
+            <h4 class="mb-2">Welcome to Aladdin! 👋</h4>
+            <p class="mb-4">Please sign-in to your account and start the adventure</p>
+
+            <form id="formAuthentication" class="mb-3" action="/accounts/login/" method="POST">
+              {% csrf_token %}
+              <ul class="errorlist">
+                {% if form.non_field_errors %}
+                <li>{{ form.non_field_errors }}</li>
+                {% endif %}
+                {% for field in form %}
+                {% if field.errors %}
+                <li>
+                  {{ field.label }}
+                  <ul class="errorlist">
+                    {% for error in field.errors %}
+                    <li class="error">{{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                </li>
+                {% endif %}
+                {% endfor %}
+              </ul>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email or Username</label>
+                <input type="text" class="form-control" id="email" name="email"
+                  placeholder="Enter your email or username" autofocus />
+              </div>
+              <div class="mb-3 form-password-toggle">
+                <div class="d-flex justify-content-between">
+                  <label class="form-label" for="password">Password</label>
+                  <a href="auth-forgot-password-basic.html">
+                    <small>Forgot Password?</small>
+                  </a>
+                </div>
+                <div class="input-group input-group-merge">
+                  <input type="password" id="password" class="form-control" name="password"
+                    placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                    aria-describedby="password" />
+                  <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                </div>
+              </div>
+              <div class="mb-3">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="remember-me" />
+                  <label class="form-check-label" for="remember-me"> Remember Me </label>
+                </div>
+              </div>
+              <div class="mb-3">
+                <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
+              </div>
+            </form>
+
+            <p class="text-center">
+              <span>New on our platform?</span>
+              <a href="{% url 'accounts:signup' %}">
+                <span>Create an account</span>
+              </a>
+            </p>
+          </div>
+        </div>
+        <!-- /Register -->
+      </div>
+    </div>
+  </div>
+
+  <!-- / Content -->
+
+  <!-- Core JS -->
+  {% include 'common/common_js.html' %}
+  {% block common_js %}
+  {% endblock%}
+
+</body>
+
+</html>
