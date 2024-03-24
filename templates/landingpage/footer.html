@@ -27,7 +27,7 @@
                 <div class="mt-4 d-flex flex-column short-link">
                     <a href="{% url 'landingpage:landing_page_about' %}" class="mb-2 text-white"><i
                             class="fas fa-angle-right text-secondary me-2"></i>About us</a>
-                    <a href="./contact.html" class="mb-2 text-white"><i
+                    <a href="{% url 'landingpage:landing_page_contact' %}" class="mb-2 text-white"><i
                             class="fas fa-angle-right text-secondary me-2"></i>Contact us</a>
                     <a href="{% url 'landingpage:landing_page_services' %}" class="mb-2 text-white"><i
                             class="fas fa-angle-right text-secondary me-2"></i>Our Services</a>
@@ -59,14 +59,10 @@
         <div class="row">
             <div class="col-md-6 text-center text-md-start">
                 <span class="text-light"><a href="#" class="text-secondary"><i
-                            class="fas fa-copyright text-secondary me-2"></i>Your Site Name</a>, All right
+                            class="fas fa-copyright text-secondary me-2"></i>Neural Wave</a>, All right
                     reserved.</span>
             </div>
-            <div class="col-md-6 text-center text-md-end">
-                <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                <span class="text-light">Designed By<a href="https://htmlcodex.com" class="text-secondary">HTML
-                        Codex</a> Distributed By <a href="https://themewagon.com">ThemeWagon</a></span>
-            </div>
+            
         </div>
     </div>
 </div>

@@ -12,3 +12,7 @@ class LandingPageAbout(TemplateView):
 
 class LandingPageServices(TemplateView):
     template_name = 'landingpage/services.html'
+
+
+class LandingPageContact(TemplateView):
+    template_name = 'landingpage/contact.html'
