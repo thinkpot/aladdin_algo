@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/"
+  data-template="vertical-menu-template-free">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+  <title>Dashboard - Realtime Signals | Aladdin</title>
+
+  <meta name="description" content="" />
+
+  <!-- Favicon -->
+  {% include 'common/common_css.html' %}
+  {% block common_css %}
+  {% endblock %}
+
+  <style>
+    .signals_card_buy{
+        background-color: #55AD9B !important;
+        color: white;
+    }
+    .signals_card_sell{
+        background-color: #FF6969 !important;
+        color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Layout wrapper -->
+  <div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+      <!-- Menu -->
+
+      {% include 'dashboard/sidebar.html' %}
+      {% block sidebar %}
+      {% endblock %}
+      <!-- / Menu -->
+
+      <!-- Layout container -->
+      <div class="layout-page">
+        {% include 'dashboard/topnavbar.html' %}
+        {% block topnavbar %}
+        {% endblock%}
+
+        <!-- Content wrapper -->
+        <div class="content-wrapper">
+          <!-- Content -->
+          <div class="container-xxl flex-grow-1 container-p-y">
+            <div class="card p-5">
+            <div class="h5">Today's Realtime Signals</div>
+            <div class="row">
+                
+                <div class="col-md-6 col-xl-3">
+                    <div class="border border-1 signals_card_buy">
+                        <div class="d-flex flex-column  p-2 w-75">
+                            <div><span>SCRIPT: </span> <span> <strong>NIFTY</strong> </span></div>
+                            <div><span>PRICE: </span> <span> <strong>23400</strong>  </span></div>
+                            <div><span>TYPE: </span> <span> <strong>BUY</strong>  </span></div>
+                            <div><span>TIME: </span> <span> <strong>10:05:05</strong>  </span></div>
+                        </div>
+                        <div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-xl-3">
+                    <div class="border border-1 signals_card_sell">
+                        <div class="d-flex flex-column  p-2 w-75">
+                            <div><span>SCRIPT: </span> <span> <strong>BANKNIFTY</strong> </span></div>
+                            <div><span>PRICE: </span> <span> <strong>55400</strong>  </span></div>
+                            <div><span>TYPE: </span> <span> <strong>SELL</strong>  </span></div>
+                            <div><span>TIME: </span> <span> <strong>10:10:05</strong>  </span></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+          </div>
+
+
+          
+          <!-- / Content -->
+
+          {% include 'dashboard/footer.html' %}
+          {% block footer %}
+          {% endblock %}
+
+          <div class="content-backdrop fade"></div>
+        </div>
+        <!-- Content wrapper -->
+      </div>
+      <!-- / Layout page -->
+    </div>
+
+    <!-- Overlay -->
+    <div class="layout-overlay layout-menu-toggle"></div>
+  </div>
+  <!-- / Layout wrapper -->
+
+
+  <!-- Core JS -->
+  {% include 'common/common_js.html' %}
+  {% block common_js %}
+  {% endblock%}
+  <!-- Place this tag in your head or just before your close body tag. -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+</body>
+
+</html>
