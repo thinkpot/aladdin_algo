@@ -7,7 +7,7 @@
   <meta charset="utf-8" />
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-  <title>Dashboard - Analytics | Aladdin</title>
+  <title>Dashboard - API | Aladdin</title>
 
   <meta name="description" content="" />
 
@@ -39,95 +39,107 @@
           <!-- Content -->
 
           <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Account Settings /</span> Account</h4>
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Account Settings</span></h4>
 
             <div class="row">
               <div class="col-md-12">
                 <ul class="nav nav-pills flex-column flex-md-row mb-3">
                   <li class="nav-item">
-                    <a class="nav-link " href="javascript:void(0);"><i class="bx bx-user me-1"></i> Account</a>
+                    <a class="nav-link" href="{% url 'dashboard:profile' request.user.id %}"><i
+                        class="bx bx-user me-1"></i> Account</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active" href="pages-account-settings-connections.html"><i class="bx bx-link-alt me-1"></i> Connections</a>
+                    <a class="nav-link active" href="{% url 'dashboard:profile' request.user.id %}"><i
+                        class="bx bx-link-alt me-1"></i> API</a>
                   </li>
                 </ul>
                 <div class="card mb-4">
-                  <h5 class="card-header">Profile Details</h5>
+                  <h5 class="card-header">API Details</h5>
                   <!-- Account -->
-                  <div class="card-body">
-                    <div class="d-flex align-items-start align-items-sm-center gap-4">
-                      <img src="{% static '/assets/img/avatars/1.png' %}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar">
-                      <div class="button-wrapper">
-                        <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                          <span class="d-none d-sm-block">Upload new photo</span>
-                          <i class="bx bx-upload d-block d-sm-none"></i>
-                          <input type="file" id="upload" class="account-file-input" hidden="" accept="image/png, image/jpeg">
-                        </label>
-                        <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                          <i class="bx bx-reset d-block d-sm-none"></i>
-                          <span class="d-none d-sm-block">Reset</span>
-                        </button>
-
-                        <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
-                      </div>
-                    </div>
-                  </div>
                   <hr class="my-0">
                   <div class="card-body">
-                    <form id="formAccountSettings" method="POST" action="{% url 'dashboard:profile-update' request.user.id %}">
+                    <form id="client-api-form" method="POST"
+                      action="{% url 'dashboard:profile-update' request.user.id %}">
                       {% csrf_token %}
                       <div class="row">
                         <div class="mb-3 col-md-6">
-                          <label for="firstName" class="form-label">First Name</label>
-                          <input class="form-control" type="text" id="firstName" name="first_name" value="{% if user.first_name is none %}{% else %}{{user.first_name}}{% endif %}" autofocus="">
+                          <label for="firstName" class="form-label">USER ID</label>
+                          <input class="form-control" type="text" id="firstName" name="client_user_id"
+                            value="{% if api_details.is_have %}{{api_details.details.client_user_id}}{% endif %}"
+                            autofocus="" placeholder="User ID" {% if api_details.is_have %} disabled {% endif %}>
                         </div>
                         <div class="mb-3 col-md-6">
-                          <label for="lastName" class="form-label">Last Name</label>
-                          <input class="form-control" type="text" name="last_name" id="last_name" value="{% if user.last_name is none %}{% else %}{{user.last_name}}{% endif %}">
+                          <label for="firstName" class="form-label">Password</label>
+                          <input class="form-control" type="text" id="firstName" name="client_password"
+                            value="{% if api_details.is_have %}{{api_details.details.client_password}}{% endif %}"
+                            autofocus="" placeholder="User ID" {% if api_details.is_have %} disabled {% endif %}>
                         </div>
                         <div class="mb-3 col-md-6">
-                          <label for="email" class="form-label">E-mail</label>
-                          <input class="form-control" type="text" id="email" name="email" value="{% if user.email is none %}{% else %}{{user.email}}{% endif %}" placeholder="john.doe@example.com">
+                          <label for="firstName" class="form-label">API KEY</label>
+                          <input class="form-control" type="text" id="firstName" name="client_id"
+                            value="{% if api_details.is_have %}{{api_details.details.client_id}}{% endif %}"
+                            autofocus="" placeholder="API Key" {% if api_details.is_have %} disabled {% endif %}>
                         </div>
-                        
                         <div class="mb-3 col-md-6">
-                          <label class="form-label" for="phoneNumber">Phone Number</label>
-                          <div class="input-group input-group-merge">
-                            <span class="input-group-text">India (+91)</span>
-                            <input type="text" id="phoneNumber" name="phone_number" class="form-control" placeholder="202 555 0111" value="{% if user.phone_number is none %}{% else %}{{user.phone_number}}{% endif %}">
-                          </div>
+                          <label for="lastName" class="form-label">API Secrect</label>
+                          <input class="form-control" type="text" name="client_secret" id="last_name"
+                            value="{% if api_details.is_have %}{{api_details.details.client_secret}}{% endif %}"
+                            placeholder="API Secret" {% if api_details.is_have %} disabled {% endif %}>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                          <label for="email" class="form-label">TOTP KEY</label>
+                          <input class="form-control" type="text" id="email" name="totp"
+                            value="{% if api_details.is_have %}{{api_details.details.totp}}{% endif %}"
+                            placeholder="2 Factor Authentication Key" {% if api_details.is_have %} disabled {% endif %}>
                         </div>
 
-      
+                        <div class="mb-3 col-md-6">
+                          <label for="defaultSelect" class="form-label">Choose Broker</label>
+                          <select id="defaultSelect" class="form-select" name="broker" {% if api_details.is_have %} disabled {% endif %}>
+                            <option>Default select</option>
+                            {% for broker in brokers_list %}
+                              <option value="{{broker.id}}" {% if api_details.is_have %} {% if broker.id == api_details.details.broker_id %} selected {% endif %} {% endif %}>{{broker.name}}</option>
+                            {% endfor %}
+                          </select>
+                        </div>
                         
+                        
+                        <div class="mb-3 col-md-6">
+                          <label for="defaultSelect" class="form-label">TOTP</label>
+                          <input class="form-control" type="text" id="email" name="otp" placeholder="TOTP">
+                        </div>
+
+                      </div>
+
+                      <div class="mb-3 col-md-6">
+                        {% if not api_details.is_have %}
+                        <div class="alert alert-danger" role="alert">API Details are not found! Please enter it!</div>
+                        {% endif %}
+
+                        {% if api_details.is_have %}
+                          {% if not api_details.details.connected %}
+                          <div class="alert alert-danger" role="alert">API is not connected! Click button below to connect</div>
+                          {% elif api_details.details.connected %}
+                          <div class="alert alert-success" role="alert">API is connected successfully! </div>
+                          {% endif %}
+
+                        {% endif %}
+
                         
                       </div>
+
                       <div class="mt-2">
-                        <button type="submit" class="btn btn-primary me-2">Save changes</button>
-                        <button type="reset" class="btn btn-outline-secondary">Clear</button>
+                        <button type="submit" class="btn btn-primary me-2 {% if api_details.is_have %} updateable {% endif %}">Save changes</button>
+                        <button id="edit-api-form" type="button" class="btn btn-secondary me-2">Edit Form</button>
+                        <button type="button" class="connect_api btn me-2 {% if api_details.details.connected %} btn-outline-success {% else %} btn-outline-primary {% endif%}" {% if api_details.details.connected %} disabled {% endif%}> {% if api_details.details.connected %} Connected {% else %} Connect {% endif %}</button>
+                        {% if api_details.details.connected %}<button type="button" class="connect_api btn btn-outline-primary me-2">Re-Connect</button> {% endif %}
+                        <!-- <button type="reset" class="btn btn-outline-secondary">Clear</button> -->
                       </div>
                     </form>
                   </div>
                   <!-- /Account -->
                 </div>
-                <div class="card">
-                  <h5 class="card-header">Delete Account</h5>
-                  <div class="card-body">
-                    <div class="mb-3 col-12 mb-0">
-                      <div class="alert alert-warning">
-                        <h6 class="alert-heading fw-bold mb-1">Are you sure you want to delete your account?</h6>
-                        <p class="mb-0">Once you delete your account, there is no going back. Please be certain.</p>
-                      </div>
-                    </div>
-                    <form id="formAccountDeactivation" onsubmit="return false">
-                      <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" name="accountActivation" id="accountActivation">
-                        <label class="form-check-label" for="accountActivation">I confirm my account deactivation</label>
-                      </div>
-                      <button type="submit" class="btn btn-danger deactivate-account">Deactivate Account</button>
-                    </form>
-                  </div>
-                </div>
+
               </div>
             </div>
           </div>
@@ -156,6 +168,132 @@
   {% endblock%}
   <!-- Place this tag in your head or just before your close body tag. -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <script>
+    // Assuming you have included jQuery library
+
+    function getChangedFields(initialData) {
+      var changedData = {};
+      $('#client-api-form').find('input, select, textarea').each(function() {
+        var name = this.name;
+        var currentValue = $(this).val();
+        if (initialData[name] !== currentValue) {
+          changedData[name] = currentValue;
+        }
+      });
+      return changedData;
+    }
+
+    var initialFormData = {};
+    $(document).ready(function () {
+      // Assuming you have a form with id "client-form" and input fields for client details
+      $("#edit-api-form").on("click", function(){
+        $('#client-api-form').find('input, select, textarea').each(function() {
+          $(this).removeAttr('disabled')
+        });
+      })
+
+      $('#client-api-form').find('input, select, textarea').each(function() {
+        initialFormData[this.name] = $(this).val();
+      });
+      
+      $('#client-api-form').submit(function (event) {
+        // Prevent the default form submission
+        event.preventDefault();
+
+        var changedFields = getChangedFields(initialFormData);
+        if ($.isEmptyObject(changedFields)) {
+            alert("No changes detected.");
+            return;
+        }
+
+        // Serialize the form data
+        var formData = $(this).serialize();
+        console.log(this, event, formData)
+        if($(event.originalEvent.submitter).hasClass('updateable')){
+          
+          // Send PUT request to update the client
+          $.ajax({
+            type: 'PATCH',
+            url: '/accounts/api/v1/update-client/{{api_details.details.id}}/',
+            data: changedFields,
+            headers: {
+            'X-CSRFToken': getCookie('csrftoken')
+            },
+            success: function(response) {
+              console.log('Client updated successfully:', response);
+              window.location.reload();
+            },
+            error: function(xhr, status, error) {
+              console.error('Failed to update client:', error);
+            }
+          });
+
+        }
+        else{
+          // AJAX request to create a new client
+          $.ajax({
+            url: '/accounts/api/v1/add-client/',  // URL for creating clients
+            type: 'POST',
+            data: formData,
+            headers: {
+            'X-CSRFToken': getCookie('csrftoken')
+            },
+            success: function (response) {
+              // Client created successfully, handle the response
+              console.log('Client created:', response);
+              window.location.reload();
+              // You can perform further actions like showing a success message or redirecting the user
+            },
+            error: function (xhr, status, error) {
+              // Error occurred while creating client, handle the error
+              console.error('Error creating client:', error);
+              // You can display an error message to the user or handle the error in any other way
+            }
+          });
+
+        }
+
+      });
+    });
+
+    // Authenticate API form
+    $(document).ready(function () {
+      $('.connect_api').on('click', function (event) {
+        event.preventDefault(); // Prevent form submission
+
+        // Send POST request to the authentication API
+        var totp = $("input[name='otp']").val()
+        console.log(totp)
+        $.ajax({
+          type: 'POST',
+          url: '/accounts/api/v1/authenticate-api/'+"{{api_details.details.id}}"+"/",
+          headers: {
+            'X-CSRFToken': getCookie('csrftoken')
+          },
+          data:{
+            "totp": totp
+          },
+          dataType: 'json',
+          success: function (response) {
+            // Authentication successful
+            console.log('Authentication successful:', response);
+            if(response.connected){
+              window.location.reload();
+            }
+            // Redirect to a new page or perform other actions
+          },
+          error: function (xhr, status, error) {
+            // Authentication failed
+            console.error('Authentication failed:', error);
+            // Display an error message or take other actions
+          }
+        });
+        
+
+      });
+    });
+
+  </script>
 </body>
 
 </html>

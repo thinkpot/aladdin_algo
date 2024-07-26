@@ -11,4 +11,28 @@
 
 <!-- Template Javascript -->
 <script src="{% static 'landingpage/js/main.js' %}"></script>
+<script>
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    function setCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+
+        var existingCookie = getCookie(name);
+        if (existingCookie !== null) {
+            document.cookie = name + "=" + value + expires + "; path=/";
+        } else {
+            document.cookie = name + "=" + value + expires + "; path=/";
+        }
+    }
+
+</script>
 {% endblock %}

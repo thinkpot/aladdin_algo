@@ -55,3 +55,29 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+
+class Broker(models.Model):
+    name = models.CharField(max_length=100)
+    broker_symbol = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Client(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    broker = models.ForeignKey(Broker, on_delete=models.CASCADE)
+    client_user_id = models.CharField(max_length=100, null=True, blank=True)
+    client_password = models.CharField(max_length=255, null=True, blank=True)
+    client_id = models.TextField(null=True, blank=True)
+    client_secret = models.TextField(null=True, blank=True)
+    totp = models.CharField(max_length=255, null=True, blank=True)
+    access_token = models.TextField(max_length=200, null=True, blank=True)
+    refresh_token = models.TextField(max_length=200, null=True, blank=True)
+    session_id = models.TextField(null=True, blank=True)
+    token_expiry = models.DateTimeField(null=True, blank=True)
+    connected = models.BooleanField(null=True, blank=True, default=False)
+
+    def __str__(self):
+        return f"{self.user.email} - {self.broker.name}"

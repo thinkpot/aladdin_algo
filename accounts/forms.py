@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 from neuralwave.validators import validate_phone_number
+from .models import Client, Broker
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -28,3 +29,11 @@ class CustomUserCreationForm(UserCreationForm):
 class LoginForm(forms.Form):
     email = forms.EmailField(label="Email")
     password = forms.CharField(label="Password", widget=forms.PasswordInput)
+
+
+class ClientForm(forms.ModelForm):
+    broker = forms.ModelChoiceField(queryset=Broker.objects.all(), empty_label="Select Broker")
+
+    class Meta:
+        model = Client
+        fields = ['broker', 'client_id', 'client_secret']

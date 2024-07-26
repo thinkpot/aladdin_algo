@@ -3,53 +3,68 @@
 {% block sidebar %}
 <!-- Menu -->
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-<div class="app-brand demo">
-    <a href="index.html" class="app-brand-link">
-    <span class="app-brand-logo demo">
-       <img src="{% static 'assets/img/logos/aladdin.png' %}" alt="" width="50">
-    </span>
-    <span class="app-brand-text demo menu-text fw-bolder ms-2">Alladin</span>
-    </a>
-
-    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
-    <i class="bx bx-chevron-left bx-sm align-middle"></i>
-    </a>
-</div>
-
-<div class="menu-inner-shadow"></div>
-
-<ul class="menu-inner py-1">
-    <!-- Dashboard -->
-    <li class="menu-item active">
-    <a href="index.html" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-home-circle"></i>
-        <div data-i18n="Analytics">Dashboard</div>
-    </a>
-    </li>
-
-    <!-- Layouts -->
-    <li class="menu-item">
-    <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons bx bx-layout"></i>
-        <div data-i18n="Layouts">Accounts</div>
-    </a>
-
-    <ul class="menu-sub">
-        <li class="menu-item">
-        <a href="{% url 'dashboard:profile' request.user.id %}" class="menu-link">
-            <div data-i18n="Without menu">Profile</div>
+    <div class="app-brand demo">
+        <a href="index.html" class="app-brand-link">
+            <span class="app-brand-logo demo">
+                <img src="{% static 'assets/img/logos/aladdin.png' %}" alt="" width="50">
+            </span>
+            <span class="app-brand-text demo menu-text fw-bolder ms-2">Alladin</span>
         </a>
+
+        <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+            <i class="bx bx-chevron-left bx-sm align-middle"></i>
+        </a>
+    </div>
+
+    <div class="menu-inner-shadow"></div>
+
+    <ul class="menu-inner py-1">
+        <!-- Dashboard -->
+        <li class="menu-item active">
+            <a href="{% url 'dashboard:home' %}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <div data-i18n="Analytics">Dashboard</div>
+            </a>
+        </li>
+
+        <!-- Layouts -->
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-layout"></i>
+                <div data-i18n="Layouts">Accounts</div>
+            </a>
+
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="{% url 'dashboard:profile' request.user.id %}" class="menu-link">
+                        <div data-i18n="Without menu">Profile</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="{% url 'dashboard:api-details' request.user.id %}" class="menu-link">
+                        <div data-i18n="Without navbar">API Details</div>
+                    </a>
+                </li>
+            </ul>
         </li>
         <li class="menu-item">
-        <a href="layouts-without-navbar.html" class="menu-link">
-            <div data-i18n="Without navbar">API Details</div>
-        </a>
+            <a href="{% url 'dashboard:trade-book' %}" class="menu-link">
+                <!-- <i class="menu-icon tf-icons bx bx-home-circle"></i> -->
+                <svg class="menu-icon tf-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M6 19h1v3h2v-3h1a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H9V2H7v3H6a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1zM7 7h2v10H7zm7 10h1v3h2v-3h1a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1h-1V4h-2v3h-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1zm1-8h2v6h-2z"></path></svg>
+               
+                <div data-i18n="Analytics">Trade Book</div>
+            </a>
         </li>
+
+        <li class="menu-item">
+            <a href="{% url 'dashboard:realtime-signals' %}" class="menu-link">
+               <svg class="menu-icon tf-icons d-flex align-items-center" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M3 16h2v5H3zm4-3h2v8H7zm4-3h2v11h-2zm4-3h2v14h-2zm4-3h2v17h-2z"></path></svg>
+                <div data-i18n="Analytics">Realtime Signals</div>
+            </a>
+        </li>
+
+
     </ul>
-    </li>
-</ul>
 </aside>
 <!-- / Menu -->
 {% endblock %}
-
-      

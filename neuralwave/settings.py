@@ -25,11 +25,18 @@ SECRET_KEY = 'django-insecure-n_eg)mj=a85^po#_o7=_cv#h%s@8%8^skerzq@haf9h2j!$0-6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['fc90-202-89-69-138.ngrok-free.app', '127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://fc90-202-89-69-138.ngrok-free.app', 'http://localhost:8000']
+# CSRF_COOKIE_SECURE = False  # Set to True in production
+# CSRF_COOKIE_HTTPONLY = False
+# SESSION_COOKIE_SECURE = False
+# # CORS settings
+# CORS_ALLOWED_ORIGINS = [
+#     'https://fc90-202-89-69-138.ngrok-free.app',
+#     'http://127.0.0.1:8000'
+# ]
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,7 +47,9 @@ INSTALLED_APPS = [
     'neuralwave',
     'accounts',
     'dashboard',
-    'landingpage'
+    'landingpage',
+    'django_crontab',
+
 ]
 
 MIDDLEWARE = [
@@ -138,3 +147,8 @@ STATICFILES_DIRS = ( os.path.join(BASE_DIR,'static/'),)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+
+CRONJOBS = [
+    ('*/1 * * * *', 'accounts.cron.new_alice_sessionid')
+]
